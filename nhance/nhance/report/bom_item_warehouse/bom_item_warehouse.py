@@ -642,7 +642,7 @@ def make_stock_requisition(planning_warehouse, required_date, reference_no, work
 			sreq_doc.update(newJson_transfer1)
 			print "sreq_doc-items#######################:", sreq_doc.items
 			type_of_doc = type(sreq_doc)
-			frappe.msgprint("doc#######################: "+ str(type_of_doc) )
+			print "type_of_doc#######################:", type_of_doc
 			if workflowStatus == "Approved":
 				sreq_doc.submit()
 			else:
