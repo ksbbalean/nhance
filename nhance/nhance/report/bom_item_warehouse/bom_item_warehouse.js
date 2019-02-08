@@ -675,7 +675,7 @@ function makeStockRequistion(filters, workflowStatus, flag) {
                 "fieldname": "required_on",
                 "label": __("Required Date"),
                 "fieldtype": "Date",
-                "default": get_today()
+                "default": frappe.datetime.get_today()
             }
         ],
         primary_action: function() {

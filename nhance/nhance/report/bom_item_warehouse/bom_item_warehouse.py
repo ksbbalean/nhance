@@ -610,7 +610,7 @@ def make_stock_requisition(planning_warehouse, required_date, reference_no, work
 		
 		sreq_items= newJson_transfer["items"]
 		sreq_items_map = get_unique_stock_requisition_items(sreq_items)
-		print "len of sreq_items_map::", sreq_items_map
+
 		if len(sreq_items_map)!=0:
 			sreq_dict = []
 			for item_code in sreq_items_map:
@@ -640,9 +640,6 @@ def make_stock_requisition(planning_warehouse, required_date, reference_no, work
 				newJson_transfer1["items"].append(innerJson_requisition1)
 			sreq_doc = frappe.new_doc("Stock Requisition")
 			sreq_doc.update(newJson_transfer1)
-			print "sreq_doc-items#######################:", sreq_doc.items
-			type_of_doc = type(sreq_doc)
-			print "type_of_doc#######################:", type_of_doc
 			if workflowStatus == "Approved":
 				sreq_doc.submit()
 			else:
