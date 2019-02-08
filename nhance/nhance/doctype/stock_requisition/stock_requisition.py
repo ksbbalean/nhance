@@ -546,6 +546,7 @@ def raise_work_orders(stock_requisition):
 		message = ["""<a href="#Form/Work Order/%s" target="_blank">%s</a>""" % \
 			(p, p) for p in work_orders]
 		msgprint(_("The following Work Orders were created:") + '\n' + new_line_sep(message))
+
 	if errors:
 		frappe.throw(_("Work Orders cannot be raised for:") + '\n' + new_line_sep(errors))
 	return work_orders
