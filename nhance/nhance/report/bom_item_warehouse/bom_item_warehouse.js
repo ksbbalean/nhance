@@ -79,7 +79,7 @@ frappe.query_reports["BOM Item Warehouse"] = {
                     bomNO = frappe.query_report.get_filter_value("master_bom_hidden");
                     console.log("master_bom::" + bomNO);
                     check_for_whole_number_flag = check_for_whole_number(bomNO, qty, query_report);
-                }else if (docName == "Production Order") {
+                }else if (docName == "Work Order") {
                     var productionID = frappe.query_report.get_filter_value("production_bom_hidden");
 		    //bomNO = getProductionBOM(productionID);
 		    bomNO = productionID;
@@ -95,7 +95,7 @@ frappe.query_reports["BOM Item Warehouse"] = {
             "fieldname": "for",
             "label": __("For"),
             "fieldtype": "Select",
-            "options": ["Sales Order", "Project", "BOM", "Production Order"],
+            "options": ["Sales Order", "Project", "BOM", "Work Order"],
             "on_change": function(query_report) {
 		frappe.query_report.refresh();
 		frappe.query_report.set_filter_value("docIds", []);
@@ -203,7 +203,7 @@ frappe.query_reports["BOM Item Warehouse"] = {
                                 docid_for_popup = docId;
 				frappe.query_report.refresh();
                             }
-                        }else if (docName == "Production Order") {
+                        }else if (docName == "Work Order") {
                             if (display_popup == true) {
 				var productionBOM = getProductionBOM(docId);
 				console.log("productionBOM::"+productionBOM);
@@ -514,7 +514,7 @@ function getProductionOrderQty(productionOrder) {
     frappe.call({
         method: 'frappe.client.get_value',
         args: {
-            doctype: "Production Order",
+            doctype: "Work Order",
             filters: {
                 name: ["=", productionOrder]
             },
@@ -546,7 +546,7 @@ function bomItemsCalculation(filters, flag, docName) {
     bom_qty = bomDetails[1];
     var bomItemsList = getBomIitemsLlist();
     var stockRequistionFlag = false;
-    if(docName == "Production Order"){
+    if(docName == "Work Order"){
 	productionOrderQty = getProductionOrderQty(productionOrder);
 	console.log("ProductionOrderQty..." + productionOrderQty);
     }
@@ -890,7 +890,7 @@ function getProductionBOM(docId){
     frappe.call({
         method: 'frappe.client.get_value',
         args: {
-            doctype: "Production Order",
+            doctype: "Work Order",
             filters: {
                 name: ["=", docId]
             },

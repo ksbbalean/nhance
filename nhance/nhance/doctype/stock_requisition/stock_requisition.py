@@ -673,7 +673,7 @@ def make_material_issue(items,company,stock_requisition_id):
 	doc = frappe.new_doc("Stock Entry")
 	doc.update(outerJson_Transfer)
 	doc.save()
-	return_doc = doc.doctype
+	return_doc = doc.name
 	if return_doc:
 		return return_doc
 

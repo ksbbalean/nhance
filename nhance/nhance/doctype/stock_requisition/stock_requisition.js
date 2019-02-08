@@ -757,6 +757,7 @@ frappe.call({
         callback: function(r) {
         	if (r.message) {
                 	cur_frm.reload_doc();
+			frappe.msgprint(__("Material Issue is created for: "+stock_requisition_id));
                  }
         } //end of callback fun..
        }) //end of frappe call.

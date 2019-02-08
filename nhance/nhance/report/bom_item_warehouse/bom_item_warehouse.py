@@ -37,7 +37,7 @@ def execute(filters=None):
 		bom_for_validation = filters.get("docIds")
 	if for_field_value == "Project":
 		bom_for_validation = filters.get("master_bom_hidden")
-	if for_field_value == "Production Order":
+	if for_field_value == "Work Order":
 		bom_for_validation = filters.get("production_bom_hidden")
 	company = filters.get("company")
 	planning_warehouse = filters.get("planning_warehouse")
@@ -249,7 +249,7 @@ def get_conditions(filters):
 		print filters.get("master_bom_hidden")
 		conditions += " and bi.parent = '%s'" % frappe.db.escape(filters.get("master_bom_hidden"), percent=False)
 
-	if filters.get("for") == "Production Order":
+	if filters.get("for") == "Work Order":
 		print filters.get("production_bom_hidden")
 		conditions += " and bi.parent = '%s'" % frappe.db.escape(filters.get("production_bom_hidden"), percent=False)
 	return conditions
@@ -775,7 +775,7 @@ def get_stock_requistion_item_qty(so_Number,item_code):
 @frappe.whitelist()
 def get_stock_requistion_bom_item_qty(bom,item_code,docName):
 	sum_qty = 0
-	if docName == "Production Order":
+	if docName == "Work Order":
 		quantity = frappe.db.sql("""select tsri.qty from `tabStock Requisition` tsr, `tabStock Requisition Item` tsri where 						tsr.requested_by=%s and tsri.item_code=%s and tsr.status not in('Stopped','Cancelled') and 						tsri.parent=tsr.name""", (bom,item_code), as_dict=1)
 	else:
 		splitted_bom_number = bom.split("-")
