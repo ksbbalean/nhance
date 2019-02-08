@@ -93,7 +93,7 @@ erpnext.buying.MaterialRequestController = erpnext.buying.BuyingController.exten
 					cur_frm.add_custom_button(__("Work Order"),
 					function() { me.raise_work_orders() }, __("Make"));
 
-				cur_frm.page.set_inner_btn_group_as_primary(__("Make"));
+				//cur_frm.page.set_inner_btn_group_as_primary(__("Make"));
 
 				// stop
 				cur_frm.add_custom_button(__('Stop'),
