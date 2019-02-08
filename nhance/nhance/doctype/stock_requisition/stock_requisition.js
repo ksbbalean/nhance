@@ -89,6 +89,10 @@ erpnext.buying.MaterialRequestController = erpnext.buying.BuyingController.exten
 					cur_frm.add_custom_button(__("Supplier Quotation"),
 					this.make_supplier_quotation, __("Make"));
 
+				if(doc.material_request_type === "Manufacture")
+					console.log("------Entered--------Manufacture");
+					cur_frm.add_custom_button(__("Work Order"),
+					this.raise_work_orders(), __("Make"));
 
 				cur_frm.page.set_inner_btn_group_as_primary(__("Make"));
 
