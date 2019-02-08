@@ -373,7 +373,7 @@ erpnext.buying.MaterialRequestController = erpnext.buying.BuyingController.exten
 		frappe.call({
 			method:"nhance.nhance.doctype.stock_requisition.stock_requisition.raise_work_orders",
 			args: {
-				"material_request": cur_frm.doc.name
+				"stock_requisition": cur_frm.doc.name
 			},
 			callback: function(r) {
 				if(r.message.length) {
