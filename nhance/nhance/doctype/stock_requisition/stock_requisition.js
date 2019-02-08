@@ -79,23 +79,23 @@ erpnext.buying.MaterialRequestController = erpnext.buying.BuyingController.exten
 
 				if(doc.material_request_type === "Purchase")
 					cur_frm.add_custom_button(__('Purchase Order'),
-					this.make_purchase_order, __("Make"));
+						this.make_purchase_order, __("Make"));
 
 				if(doc.material_request_type === "Purchase")
 					cur_frm.add_custom_button(__("Request for Quotation"),
-					this.make_request_for_quotation, __("Make"));
+						this.make_request_for_quotation, __("Make"));
 
 				if(doc.material_request_type === "Purchase")
 					cur_frm.add_custom_button(__("Supplier Quotation"),
 					this.make_supplier_quotation, __("Make"));
 
 				if(doc.material_request_type === "Manufacture")
-					console.log("------Entered--------Manufacture");
 					cur_frm.add_custom_button(__("Work Order"),
-					this.raise_work_orders(), __("Make"));
+					function() { me.raise_work_orders() }, __("Make"));
 
 				cur_frm.page.set_inner_btn_group_as_primary(__("Make"));
 
+				// stop
 				cur_frm.add_custom_button(__('Stop'),
 					cur_frm.cscript['Stop Material Request']);
 			}

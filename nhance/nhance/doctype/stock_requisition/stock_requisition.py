@@ -543,7 +543,7 @@ def raise_work_orders(stock_requisition):
 			else:
 				errors.append(_("Row {0}: Bill of Materials not found for the Item {1}").format(d.idx, d.item_code))
 	if work_orders:
-		message = ["""<a href="#Form/Production Order/%s" target="_blank">%s</a>""" % \
+		message = ["""<a href="#Form/Work Order/%s" target="_blank">%s</a>""" % \
 			(p, p) for p in work_orders]
 		msgprint(_("The following Work Orders were created:") + '\n' + new_line_sep(message))
 	if errors:
