@@ -90,7 +90,7 @@ erpnext.buying.MaterialRequestController = erpnext.buying.BuyingController.exten
 					this.make_supplier_quotation, __("Make"));
 
 				if(doc.material_request_type === "Manufacture")
-					cur_frm.add_custom_button(__("Work Order"),
+					cur_frm.add_custom_button(__("Work"),
 					this.raise_work_orders, __("Make"));
 
 				cur_frm.page.set_inner_btn_group_as_primary(__("Make"));
@@ -367,22 +367,6 @@ erpnext.buying.MaterialRequestController = erpnext.buying.BuyingController.exten
 
 	},
 
-	raise_production_orders: function() {
-		var me = this;
-		frappe.call({
-			method:"nhance.nhance.doctype.stock_requisition.stock_requisition.raise_production_orders",
-			args: {
-				"material_request": me.frm.doc.name
-			},
-			callback: function(r) {
-				if(r.message.length) {
-					me.frm.reload_doc();
-				}
-			}
-		});
-	
-	},
-
 	raise_work_orders: function() {
 		var me = this;
 		frappe.call({
@@ -396,7 +380,6 @@ erpnext.buying.MaterialRequestController = erpnext.buying.BuyingController.exten
 				}
 			}
 		});
-	
 	},
 
 	validate: function() {
