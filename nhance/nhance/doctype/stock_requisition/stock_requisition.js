@@ -352,7 +352,7 @@ erpnext.buying.MaterialRequestController = erpnext.buying.BuyingController.exten
 				**/
 				var items = r.message.items;
 				var stockEntryList = r.message;
-				makeStockEntry(stockEntryList,items,stock_requisition_id);
+				makeStockEntry(stockEntryList,items,stock_requisition_id,cur_frm);
 			}
 			});
 		}else{
@@ -744,7 +744,7 @@ frappe.call({
 return checkFlag;
 }
 
-function makeStockEntry(stockEntryList,items,stock_requisition_id){
+function makeStockEntry(stockEntryList,items,stock_requisition_id,cur_frm){
 var company = stockEntryList.company;
 frappe.call({
 	method: "nhance.nhance.doctype.stock_requisition.stock_requisition.make_material_issue",
@@ -756,7 +756,7 @@ frappe.call({
         async: false,
         callback: function(r) {
         	if (r.message) {
-                	frm.reload_doc()
+                	cur_frm.reload_doc();
                  }
         } //end of callback fun..
        }) //end of frappe call.
