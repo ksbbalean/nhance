@@ -573,8 +573,8 @@ def raise_work_orders(stock_requisition):
 				wo_order.expected_delivery_date = d.schedule_date
 				wo_order.sales_order = d.sales_order
 				wo_order.bom_no = get_item_details(d.item_code).bom_no
-				wo_order.material_request = mr.name
-				wo_order.material_request_item = d.name
+				wo_order.stock_requisition = mr.name
+				wo_order.stock_requisition_item = d.name
 				wo_order.planned_start_date = mr.transaction_date
 				wo_order.company = mr.company
 				wo_order.save()
