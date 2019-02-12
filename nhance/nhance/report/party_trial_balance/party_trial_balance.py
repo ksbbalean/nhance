@@ -31,14 +31,20 @@ def execute(filters=None):
 	company_currency = frappe.db.get_value("Company", filters.company, "default_currency")
 	party_name_field = "{0}_name".format(frappe.scrub(filters.get('party_type')))
 	party_filters1 = {"name": filters.get("party")} if filters.get("party") else {}
-	parties1 = frappe.get_all(filters.get("party_type"), fields = ["name", party_name_field], 
-		filters = party_filters1, order_by="name")
+
+	if filters.get('party_type') == "Student" or filters.get('party_type') == "Shareholder":
+		party_name_field = "name"
+		
+	print "party_name_field-----", party_name_field
+	
+	parties1 = frappe.get_all(filters.get("party_type"), fields = ["name", party_name_field], filters = party_filters1, order_by="name")
+
 	for opening_balance in opening_balances:
 		credit = 0.0
 		debit = 0.0
 		key = opening_balance['name']
 		credit = opening_balance['credit']
-		debit = opening_balance['credit']
+		debit = opening_balance['debit']
 		if key not in opening_balance_map:
 			opening_balance_map[key] = frappe._dict({
 				"opening_credit": credit, 
@@ -78,7 +84,7 @@ def execute(filters=None):
 
 		total_closing_debit = total_closing_debit + balances['closing_debit']
 		total_closing_credit = total_closing_credit + balances['closing_credit']
-
+		party = str(unicode(party))
 		party_list.append(party)
 		
 		final_result.append([party, account, balances['opening_debit'], balances['opening_credit'], debit, credit, balances['closing_debit'], balances['closing_credit'], company_currency])
@@ -90,10 +96,14 @@ def execute(filters=None):
 			name = "customer_name"
 		elif filters.get("party_type") == "Supplier":
 			name = "supplier_name"
-		elif filters.get("party_type") == "Employee":
+		elif filters.get("party_type") == "Employee" or filters.get("party_type") == "Shareholder":
 			name = "name"
 		for party_names in parties1:
-			if party_names[name] not in unique_party_list:
+			print "==============party_name", party_names[name]
+			print "==============unique_party_list", unique_party_list
+			
+			if str(party_names[name]) not in unique_party_list:
+				print "==============party_name entered....."
 				final_result.append([party_names[name], "", "", "", "", "", "", "", company_currency])
 
 	final_result.append(["Totals", "", total_opening_debit, total_opening_credit, total_debit, total_credit, total_closing_debit, total_closing_credit, company_currency])
@@ -224,8 +234,9 @@ def get_columns(filters, show_party_name):
 
 def is_party_name_visible(filters):
 	show_party_name = False
-
-	if filters.get('party_type') in ['Customer', 'Supplier', 'Employee']:
+	party_type_list = get_party_type_list()
+	print "**************************party_type_list ", party_type_list
+	if filters.get('party_type') in party_type_list: #['Customer', 'Supplier', 'Employee']
 		if filters.get("party_type") == "Customer":
 			party_naming_by = frappe.db.get_single_value("Selling Settings", "cust_master_name")
 		else:
@@ -237,3 +248,13 @@ def is_party_name_visible(filters):
 		show_party_name = True
 
 	return show_party_name
+
+def get_party_type_list():
+	final_list = []
+	party_type_list = frappe.db.sql("select party_type from `tabParty Type", as_dict=1)
+	for entries in party_type_list:
+		print "**************************tuple_data ", entries['party_type']
+		final_list.append(entries['party_type'])
+	return final_list
+
+

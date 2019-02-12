@@ -85,17 +85,15 @@ frappe.query_reports["BOM Item Warehouse Status Report"] = {
 		}//end of if..
 		else if(docName=="BOM"){
 			frappe.query_report.refresh();
-			
 			var status = get_record_status();
-			if(status == -1){
+			if(Number(status) == -1){
 				frappe.msgprint(__("Records Not Found For "+docID));
 			}
 		}
 		else if(docName=="Sales Order"){
 			frappe.query_report.refresh();
-			
 			var status = get_record_status();
-			if(status == -1){
+			if(Number(status) == -1){
 				frappe.msgprint(__("Records Not Found For "+docID));
 			}
 		}

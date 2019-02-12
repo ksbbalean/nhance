@@ -47,8 +47,10 @@ frappe.query_reports["Party Trial Balance"] = {
 		{
 			"fieldname":"party_type",
 			"label": __("Party Type"),
-			"fieldtype": "Select",
-			"options": ["Customer", "Supplier", "Employee"],
+			"fieldtype": "Link",
+			//"fieldtype": "Select",
+			//"options": ["Customer", "Supplier", "Employee"],
+			"options": "Party Type",
 			"default": "Customer",
 			"reqd": 1
 		},

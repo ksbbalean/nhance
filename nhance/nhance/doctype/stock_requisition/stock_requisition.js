@@ -513,31 +513,6 @@ return whole_number_in_stock_transactions_flag;
 }
 
 function getConversionFactor(purchase_uom,item_code){
-/**
-var conversion_factor = 0;
-    frappe.call({
-        method: 'frappe.client.get_value',
-        args: {
-            doctype: "UOM Conversion Detail",
-            filters: {
-                uom: ["=", purchase_uom],
-		parent: ["=", item_code]
-		
-            },
-
-            fieldname: ["conversion_factor"]
-        },
-        async: false,
-        callback: function(r) {
-		if(r.message){
-            	conversion_factor = r.message.conversion_factor;
-		}else{
-		conversion_factor =null;
-		}
-        }
-    });
-return conversion_factor;
-**/
 var conversion_factor;
 frappe.call({
            method: "nhance.nhance.doctype.stock_requisition.stock_requisition.fetch_conversion_factor",
