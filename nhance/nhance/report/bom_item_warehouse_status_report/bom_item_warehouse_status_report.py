@@ -59,7 +59,7 @@ def get_columns():
 def get_items_data(requested_by):
 	print "#####-requested_by::", requested_by
 	items_details = []
-	if requested_by != "null" and requested_by is not None:
+	if requested_by != "null" and requested_by is not None and requested_by is not "":
 		records = frappe.db.sql("""select name,po_list from `tabStock Requisition` where requested_by =%s and docstatus=1""", (requested_by), as_dict=1)
 		print "####-records::", records, len(records)
 		if len(records)!=0:
@@ -81,8 +81,7 @@ def get_items_data(requested_by):
 			if check_flag is not True:
 				frappe.msgprint("There is no Purchase Order For "+requested_by)
 		else:
-			if requested_by is not "" and requested_by is not None:
-				frappe.msgprint("Records Not Found For "+requested_by)
+			frappe.msgprint("Records Not Found For "+requested_by)
 	return items_details
 
 def get_po_items(po):
