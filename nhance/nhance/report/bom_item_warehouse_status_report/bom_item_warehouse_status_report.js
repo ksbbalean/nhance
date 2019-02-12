@@ -72,11 +72,13 @@ frappe.query_reports["BOM Item Warehouse Status Report"] = {
 		console.log("masterBOM-----:: "+master_bom);
 		frappe.query_report.set_filter_value("master_bom_hidden", "");
 		frappe.query_report.set_filter_value("master_bom_hidden", master_bom);
+		/**
 		var status = 0;
-		//status = get_record_status();
+		status = get_record_status();
 		if(status == -1){
 			frappe.msgprint(__("Records Not Found For "+docID));
 			}
+		**/
 
 		}
 		}//end of call-back function..
@@ -86,17 +88,9 @@ frappe.query_reports["BOM Item Warehouse Status Report"] = {
 		}//end of if..
 		else if(docName=="BOM"){
 			frappe.query_report.refresh();
-			var status = get_record_status();
-			if(Number(status) == -1){
-				frappe.msgprint(__("Records Not Found For "+docID));
-			}
 		}
 		else if(docName=="Sales Order"){
 			frappe.query_report.refresh();
-			var status = get_record_status();
-			if(Number(status) == -1){
-				frappe.msgprint(__("Records Not Found For "+docID));
-			}
 		}
 		frappe.query_report.refresh();
 		
