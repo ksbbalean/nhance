@@ -72,7 +72,8 @@ frappe.query_reports["BOM Item Warehouse Status Report"] = {
 		console.log("masterBOM-----:: "+master_bom);
 		frappe.query_report.set_filter_value("master_bom_hidden", "");
 		frappe.query_report.set_filter_value("master_bom_hidden", master_bom);
-		var status = get_record_status();
+		var status = 0;
+		//status = get_record_status();
 		if(status == -1){
 			frappe.msgprint(__("Records Not Found For "+docID));
 			}
