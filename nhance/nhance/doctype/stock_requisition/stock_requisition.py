@@ -713,7 +713,7 @@ def check_stock_entry_for_stock_requisition(stock_requisition_id):
 		flag = "true"
 	else:
 		flag = "false"
-	print "flag----------", flag
+	print ("flag----------", flag)
 	return flag
 
 @frappe.whitelist()
